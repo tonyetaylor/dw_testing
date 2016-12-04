@@ -1,0 +1,2 @@
+class TargetTable < Table
+end

@@ -1,0 +1,2 @@
+class SourceTable < Table
+end
