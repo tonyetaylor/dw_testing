@@ -1,0 +1,37 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Test Instances</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Expected result</th>
+      <th>Sql statement</th>
+      <th>User</th>
+      <th>Test run</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @test_instances.each do |test_instance| %>
+      <tr>
+        <td><%= test_instance.title %></td>
+        <td><%= test_instance.description %></td>
+        <td><%= test_instance.expected_result %></td>
+        <td><%= test_instance.sql_statement %></td>
+        <td><%= test_instance.user %></td>
+        <td><%= test_instance.test_run %></td>
+        <td><%= link_to 'Show', test_instance %></td>
+        <td><%= link_to 'Edit', edit_test_instance_path(test_instance) %></td>
+        <td><%= link_to 'Destroy', test_instance, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Test Instance', new_test_instance_path %>

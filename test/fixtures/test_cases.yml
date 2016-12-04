@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  description: MyString
+  expected_result: MyString
+  sql_statement: MyString
+  user: one
+  test_suite: one
+
+two:
+  title: MyString
+  description: MyString
+  expected_result: MyString
+  sql_statement: MyString
+  user: two
+  test_suite: two

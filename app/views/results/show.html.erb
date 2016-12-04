@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Pass flag:</strong>
+  <%= @result.pass_flag %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @result.user %>
+</p>
+
+<p>
+  <strong>Test instance:</strong>
+  <%= @result.test_instance %>
+</p>
+
+<p>
+  <strong>Test run:</strong>
+  <%= @result.test_run %>
+</p>
+
+<p>
+  <strong>Table:</strong>
+  <%= @result.table %>
+</p>
+
+<%= link_to 'Edit', edit_result_path(@result) %> |
+<%= link_to 'Back', results_path %>

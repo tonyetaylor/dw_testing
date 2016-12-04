@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Results</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Pass flag</th>
+      <th>User</th>
+      <th>Test instance</th>
+      <th>Test run</th>
+      <th>Table</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @results.each do |result| %>
+      <tr>
+        <td><%= result.pass_flag %></td>
+        <td><%= result.user %></td>
+        <td><%= result.test_instance %></td>
+        <td><%= result.test_run %></td>
+        <td><%= result.table %></td>
+        <td><%= link_to 'Show', result %></td>
+        <td><%= link_to 'Edit', edit_result_path(result) %></td>
+        <td><%= link_to 'Destroy', result, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Result', new_result_path %>

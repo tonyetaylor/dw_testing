@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @test_case.title %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @test_case.description %>
+</p>
+
+<p>
+  <strong>Expected result:</strong>
+  <%= @test_case.expected_result %>
+</p>
+
+<p>
+  <strong>Sql statement:</strong>
+  <%= @test_case.sql_statement %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @test_case.user %>
+</p>
+
+<p>
+  <strong>Test suite:</strong>
+  <%= @test_case.test_suite %>
+</p>
+
+<%= link_to 'Edit', edit_test_case_path(@test_case) %> |
+<%= link_to 'Back', test_cases_path %>

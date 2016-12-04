@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  pass_flag: false
+  user: one
+  test_instance: one
+  test_run: one
+  table: one
+
+two:
+  pass_flag: false
+  user: two
+  test_instance: two
+  test_run: two
+  table: two
