@@ -15,9 +15,6 @@ class TestCasesController < BasicUserController
   # GET /test_cases/new
   def new
     @test_case = TestCase.new
-    db = SQLite3::Database.new ":memory:"
-    file = File.join(Rails.root, 'app', 'controllers', 'script.sql')
-    results = db.execute(File.read(file))
   end
 
   # GET /test_cases/1/edit

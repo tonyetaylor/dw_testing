@@ -33,8 +33,6 @@ class TestInstancesController < BasicUserController
     @test_instance.user_id = params[:user_id]
     @test_instance.test_run_id = params[:test_run_id]
     @test_instance.save
-    db = SQLite3::Database.new ":memory:"
-    results = db.execute(File.read("script.sql"))
 =begin
     @sql_client = TinyTds::Client.new(
       :username => ENV["SQL_USERNAME"], 

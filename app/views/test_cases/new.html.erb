@@ -1,42 +1,8 @@
- <head>
-    <link href="//d2zz4thflisoea.cloudfront.net/976d8e07/stylesheets/application.css" rel="stylesheet" type="text/css">
-    <link href="//d2zz4thflisoea.cloudfront.net/976d8e07/stylesheets/namely-ui.css" rel="stylesheet" type="text/css">
-  </head>
-  <body class="home-index" data-dateformat="%m/%d/%Y">
-    <div id="layout">
-      <div id="head-wrap">
-        <header>
-          <a href="/" id="logo"><div class="icon"></div></a>
-          <div id="main-nav"><a class="on" href="/">Home</a><a href="/people">SQL Query Unit Tests</a><a href="/teams">ODS Table Tests</a><a href="/company">Data Warehouse Tests</a></div>
-          <div id="nav_search">
-            <form class="search-form on" action="/people" accept-charset="UTF-8" method="get">
-              <input name="utf8" type="hidden" value="✓" class="on">
-              <input name="q" placeholder="Search" type="search" x-webkit-speech="" class="on">
-              <input type="hidden" name="source" id="source" value="search_bar" class="on">
-              <button class="ir icon" title="Search" type="submit"></button>
-            </form>
-          </div>
-          <div class="clear"></div>
-        </header>
-      </div>
-
-<div class="namely-ui" id="view-component"><div data-reactroot="" class="mb5"><span></span></div></div>
-      
-<div id="content"><section class="clearfix "><header class="clearfix"><h1>New Test Case</h1></header>
+<% content_for :head do %> New Test Case <% end %>
 
 
 <%= render 'form', test_case: @test_case %>
 
 <%= link_to 'Back', test_cases_path %>
 
-</section></div> <!-- content, section clearfix -->
 
- <div id="foot-wrap">
-        <div class="layout layout-full">
-          <footer>©2016 Namely, Inc.<a class="pull-right" href="https://www.namely.com/privacy">Privacy Policy</a><a class="pull-right" href="https://namely.com/terms">Terms</a>
-          </footer>
-        </div>
-      </div>
-    </div> <!-- end layout div -->
- 
-</body>
