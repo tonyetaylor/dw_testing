@@ -1,4 +1,4 @@
-class ResultsController < ApplicationController
+class ResultsController < BasicUserController
   before_action :set_result, only: [:show, :edit, :update, :destroy]
 
   # GET /results

@@ -1,4 +1,4 @@
-class TestRunsController < ApplicationController
+class TestRunsController < BasicUserController
   before_action :set_test_run, only: [:show, :edit, :update, :destroy]
 
   # GET /test_runs

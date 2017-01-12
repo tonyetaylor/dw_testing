@@ -1,4 +1,4 @@
-class TestSuitesController < ApplicationController
+class TestSuitesController < BasicUserController
   before_action :set_test_suite, only: [:show, :edit, :update, :destroy]
 
   # GET /test_suites

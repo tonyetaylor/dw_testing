@@ -1,3 +1,4 @@
+<div class="layout-middle">
 <%= form_for(test_case) do |f| %>
   <% if test_case.errors.any? %>
     <div id="error_explanation">
@@ -25,23 +26,22 @@
     <%= f.label :expected_result %>
     <%= f.text_field :expected_result %>
   </div>
-
   <div class="field">
     <%= f.label :sql_statement %>
-    <%= f.text_field :sql_statement %>
+    <%= f.text_area :sql_statement, :size => "400x400" %>
   </div>
-
   <div class="field">
     <%= f.label :user_id %>
-    <%= f.text_field :user_id %>
+    <%= f.collection_select :user_id, User.order(:email),:id,:email, include_blank: true %>
   </div>
 
   <div class="field">
     <%= f.label :test_suite_id %>
-    <%= f.text_field :test_suite_id %>
+    <%= f.collection_select :test_suite_id, TestSuite.order(:title),:id,:title, include_blank: true %>
   </div>
 
-  <div class="actions">
-    <%= f.submit %>
+  <div class="slim-button">
+    <%= f.submit 'Create new test case', :class => "button" %>
   </div>
 <% end %>
+</div>

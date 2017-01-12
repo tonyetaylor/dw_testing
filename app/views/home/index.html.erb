@@ -1,37 +1,27 @@
-<html lang="en">
-  <head>
-    <link href="//d2zz4thflisoea.cloudfront.net/976d8e07/stylesheets/application.css" rel="stylesheet" type="text/css">
-    <link href="//d2zz4thflisoea.cloudfront.net/976d8e07/stylesheets/namely-ui.css" rel="stylesheet" type="text/css">
-  </head>
-  <body class="home-index" data-dateformat="%m/%d/%Y">
-    <div id="layout">
-      <div id="head-wrap">
-        <header>
-          <a href="/" id="logo"><div class="icon"></div></a>
-          <div id="main-nav"><a class="on" href="/">Home</a><a href="/people">People</a><a href="/teams">Teams</a><a href="/company">Company</a></div>
-          <div id="nav_search">
-            <form class="search-form on" action="/people" accept-charset="UTF-8" method="get">
-              <input name="utf8" type="hidden" value="✓" class="on">
-              <input name="q" placeholder="Search" type="search" x-webkit-speech="" class="on">
-              <input type="hidden" name="source" id="source" value="search_bar" class="on">
-              <button class="ir icon" title="Search" type="submit"></button>
-            </form>
-          </div>
-          <div class="clear"></div>
-        </header>
-      </div>
+  <% content_for :head do %> Namely QA Dashboard <% end %>
 
-      <div class="namely-ui" id="view-component"><div data-reactroot="" class="mb5"><span></span></div></div>
+      <div id="team-page"><select class="hide" id="status-filter"><option value="all">All</option><option value="active">Active</option></select>
 
-      <div id="content">
-      </div>
+      <div class="sidenav-narrow" id="teams-filter"><h2>What would you like to do?</h2></div>
 
-      <div id="foot-wrap">
-        <div class="layout layout-full">
-          <footer>©2016 Namely, Inc.<a class="pull-right" href="https://www.namely.com/privacy">Privacy Policy</a><a class="pull-right" href="https://namely.com/terms">Terms</a>
-          </footer>
-        </div>
-      </div>
-    </div> <!-- end layout div -->
-  </body>
-</html>
+      <div id="results"><div id="team-list-container"><div class="loading" style="display: none;"></div><ul id="team-list">
+
+      <li class="active"><div class="team" team="4619"><h3><a href="/test_cases/new">Create SQL Unit Test</a></h3><a class="slim-button button-secondary counter tooltip" >15 tests</a><a class="button email" href="mailto: team-3bfd542d-0317-4005-bc9b-ff18caf42684@namely.namely.com"></a></div></li>
+
+      <li class="active" style="visibility:hidden"><div class="team" team="2781"><h3><a href="/divisions/30c1da0c-d172-45ad-bfb2-cd8fccb3e9b4">Placeholder</a></h3><a class="slim-button button-secondary counter tooltip">81 Members</a><a class="button email" href="mailto: team-30c1da0c-d172-45ad-bfb2-cd8fccb3e9b4@namely.namely.com"></a></div></li>
+
+      <li class="active" style="visibility:hidden"><div class="team" team="206"><h3><a href="/divisions/dadbbe72-4df0-461f-8b64-f7d41238aa31">Placeholder</a></h3><a class="slim-button button-secondary counter tooltip">94 Members</a><a class="button email" href="mailto: team-dadbbe72-4df0-461f-8b64-f7d41238aa31@namely.namely.com"></a></div></li>
+
+      <li class="active" style="visibility:hidden;"><div class="team" team="4646"><h3><a href="/divisions/6e6c1d99-239f-450f-9a06-8b7e3520397d">Placeholder</a></h3><a class="slim-button button-secondary counter tooltip" data-content="<div class='employee'><img src=&quot;/files/0ab32f61-8a03-4e24-ac59-bb534423e1e9/image/40x40c&quot; alt=&quot;40x40c&quot; /><div class='employee-info'><a href=/people/77a4dd8b-f21c-4c16-9fab-b873a1a634d1> Matt Straz</a><div class='employee-job-title'>CEO</div></div></div>" title="">1 Members</a><a class="button email" href="mailto: team-6e6c1d99-239f-450f-9a06-8b7e3520397d@namely.namely.com"></a></div></li>
+
+      <li class="active"><div class="team" team="4623"><h3><a href="/divisions/7a16d57d-16db-4628-af0f-7509a40d7e58">Create ODS Table Test</a></h3><a class="slim-button button-secondary counter tooltip">23 Issues</a><a class="button email" href="mailto: team-7a16d57d-16db-4628-af0f-7509a40d7e58@namely.namely.com"></a></div></li>
+
+      <li class="active" style="visibility:hidden;"><div class="team" team="4637"><h3><a href="/divisions/4e4a4c6c-3702-4d4d-a48f-b700622d9b28">Placeholder</a></h3><a class="slim-button button-secondary counter tooltip" >4 Members</a><a class="button email" href="mailto: team-4e4a4c6c-3702-4d4d-a48f-b700622d9b28@namely.namely.com"></a></div></li>
+
+      <li class="active" style="visibility:hidden;"><div class="team" team="2780"><h3><a href="/divisions/96e58642-fa2f-4a7e-a9ff-bef93bdf83a3">Placeholder</a></h3><a class="slim-button button-secondary counter tooltip">29 Members</a><a class="button email" href="mailto: team-96e58642-fa2f-4a7e-a9ff-bef93bdf83a3@namely.namely.com"></a></div></li>
+
+      <li class="active" style="visibility:hidden;"><div class="team" team="4135"><h3><a href="/divisions/e62040b5-b505-47b9-ac82-8eda2ff375a2">Placeholder</a></h3><a class="slim-button button-secondary counter tooltip" >21 Members</a><a class="button email" href="mailto: team-e62040b5-b505-47b9-ac82-8eda2ff375a2@namely.namely.com"></a></div></li>
+
+      <li class="active"><div class="team" team="4133"><h3><a href="/divisions/bdc6c9a1-34a6-44b4-83c7-74acf5eef3da">Run Tests</a></h3><a class="slim-button button-secondary counter tooltip">15 Tests</a><a class="button email" href="mailto: team-bdc6c9a1-34a6-44b4-83c7-74acf5eef3da@namely.namely.com"></a></div></li>
+     </ul></div></div></div>
+   

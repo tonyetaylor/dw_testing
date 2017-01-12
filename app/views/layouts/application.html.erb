@@ -1,14 +1,52 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title>DwTesting</title>
+    <title>DWTesting</title>
     <%= csrf_meta_tags %>
-
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <link href="https://d2zz4thflisoea.cloudfront.net/976d8e07/stylesheets/application.css" rel="stylesheet" type="text/css">
+    <link href="https://d2zz4thflisoea.cloudfront.net/976d8e07/stylesheets/namely-ui.css" rel="stylesheet" type="text/css">
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %> 
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
+  
+  <body class="home-index" data-dateformat="%m/%d/%Y">
+  <div id="layout">
+  <!-- remember id="layout" extends past footer -->
 
-  <body>
+  <!-- begin header -->
+  <div id="head-wrap">
+        <header>
+          <a href="/" id="logo"><div class="icon"></div></a>
+          <div id="main-nav"><a class="on" href="/">Home</a><a href="/people">View SQL Tests</a><a href="/teams">View ODS Table Tests</a><a href="/company">View DW Tests</a></div>
+          <div id="nav_search">
+            <form class="search-form on" action="/people" accept-charset="UTF-8" method="get">
+              <input name="utf8" type="hidden" value="✓" class="on">
+              <input name="q" placeholder="Search" type="search" x-webkit-speech="" class="on">
+              <input type="hidden" name="source" id="source" value="search_bar" class="on">
+              <button class="ir icon" title="Search" type="submit"></button>
+            </form>
+          </div>
+          <div class="clear"></div>
+        </header>
+      </div>
+    <!-- end header -->
+    <div class="namely-ui" id="view-component"><div data-reactroot="" class="mb5"><span></span></div></div>
+
+    <div id="content"><section class="clearfix "><header class="clearfix"><h1><%= yield(:head) %></h1></header>
+    
     <%= yield %>
+
+    </section></div>
   </body>
+
+  <!-- footer -->
+  <div id="foot-wrap">
+        <div class="layout layout-full">
+          <footer>©2016 Namely, Inc.<a class="pull-right" href="https://www.namely.com/privacy">Privacy Policy</a><a class="pull-right" href="https://namely.com/terms">Terms</a>
+          </footer>
+        </div>
+      </div>
+  <!-- end footer -->
+
+  </div> <!-- end layout div -->
 </html>

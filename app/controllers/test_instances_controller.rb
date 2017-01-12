@@ -1,4 +1,4 @@
-class TestInstancesController < ApplicationController
+class TestInstancesController < BasicUserController
   before_action :set_test_instance, only: [:show, :edit, :update, :destroy]
 
   # GET /test_instances
@@ -24,8 +24,48 @@ class TestInstancesController < ApplicationController
   # POST /test_instances
   # POST /test_instances.json
   def create
-    @test_instance = TestInstance.new(test_instance_params)
+    @test_instance = TestInstance.new
+    @test_case = TestCase.find(params[:test_case_id])
+    @test_instance.title = @test_case.title
+    @test_instance.description = @test_case.description
+    @test_instance.expected_result = @test_case.expected_result
+    @test_instance.sql_statement = @test_case.sql_statement
+    @test_instance.user_id = params[:user_id]
+    @test_instance.test_run_id = params[:test_run_id]
+    @test_instance.save
+    db = SQLite3::Database.new ":memory:"
+    results = db.execute(File.read("script.sql"))
+=begin
+    @sql_client = TinyTds::Client.new(
+      :username => ENV["SQL_USERNAME"], 
+      :dataserver => ENV["SQL_DATASERVER"], 
+      :password => ENV["SQL_PASSWORD"],
+      :database => ENV["SQL_DATABASE"], 
+      :port => 1433
+    )
 
+    @postgres_client = PG.connect(
+      :dbname   => 'int_waldorf_namely_production',
+      :host     => 'database-featureteam-hcm-proddatav1.namely.run',
+      :user     => 'svc_waldorf',
+      :password => '6jhny6OtNtuyEF1pfLmUFr2mF',
+      :sslmode  => 'prefer',
+      :port     => 5432
+    )
+
+    results = @postgres_client.execute('select TOP 5 * from HCM_Profiles')
+
+    #record result
+
+    t.boolean  "pass_flag"
+    t.integer  "user_id"
+    t.integer  "test_instance_id"
+    t.integer  "test_run_id"
+    t.integer  "table_id"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.string   "output"
+=end
     respond_to do |format|
       if @test_instance.save
         format.html { redirect_to @test_instance, notice: 'Test instance was successfully created.' }
@@ -69,6 +109,6 @@ class TestInstancesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def test_instance_params
-      params.require(:test_instance).permit(:title, :description, :expected_result, :sql_statement, :user_id, :test_run_id)
+      params.require(:test_instance).permit(:test_case_id, :user_id, :test_run_id)
     end
 end

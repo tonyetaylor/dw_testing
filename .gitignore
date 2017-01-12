@@ -24,3 +24,7 @@
 /bin/*
 /log/*
 /tmp/*
+
+/app/controllers/script.sql
+/app/controllers/.DS_Store
+/app/.DS_Store

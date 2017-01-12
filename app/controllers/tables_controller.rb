@@ -1,4 +1,4 @@
-class TablesController < ApplicationController
+class TablesController < BasicUserController
   before_action :set_table, only: [:show, :edit, :update, :destroy]
 
   # GET /tables
