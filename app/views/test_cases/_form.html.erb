@@ -18,18 +18,40 @@
   </div>
 
   <div class="field">
+    <%= f.label :automated %>
+    <%= f.check_box :automated %>
+  </div>
+
+  <div class="field">
+    <%= f.label :automation_category %>
+    <%= f.select(:automation_category, [['unit', 'unit'], ['feature', 'feature'], ['integration', 'integration']]) %>
+  </div>
+
+  <div class="field">
+    <%= f.label :jira_link %>
+    <%= f.text_field :jira_link %>
+  </div>
+
+  <div class="field">
+    <%= f.label :github_pull_request_link %>
+    <%= f.text_field :github_pull_request_link %>
+  </div>
+
+  <div class="field">
+    <%= f.label :confluence_link %>
+    <%= f.text_field :confluence_link %>
+  </div>
+
+  <div class="field">
     <%= f.label :description %>
-    <%= f.text_field :description %>
+    <%= f.text_area :description, :size => "400x400" %>
   </div>
 
   <div class="field">
     <%= f.label :expected_result %>
     <%= f.text_field :expected_result %>
   </div>
-  <div class="field">
-    <%= f.label :sql_statement %>
-    <%= f.text_area :sql_statement, :size => "400x400" %>
-  </div>
+  
   <div class="field">
     <%= f.label :user_id %>
     <%= f.collection_select :user_id, User.order(:email),:id,:email, include_blank: true %>

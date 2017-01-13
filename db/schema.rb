@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170113043104) do
+ActiveRecord::Schema.define(version: 20170113110729) do
 
   create_table "results", force: :cascade do |t|
     t.boolean  "pass_flag"
@@ -37,11 +37,15 @@ ActiveRecord::Schema.define(version: 20170113043104) do
     t.string   "title"
     t.string   "description"
     t.string   "expected_result"
-    t.string   "sql_statement"
     t.integer  "user_id"
     t.integer  "test_suite_id"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.boolean  "automated"
+    t.integer  "automation_category"
+    t.string   "jira_link"
+    t.string   "confluence_link"
+    t.string   "github_pull_request_link"
     t.index ["test_suite_id"], name: "index_test_cases_on_test_suite_id"
     t.index ["user_id"], name: "index_test_cases_on_user_id"
   end
