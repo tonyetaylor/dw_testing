@@ -17,7 +17,7 @@
 
 #TODO edge case for #create_go_test_node when t.Run has scenarios (test cases) run via an interator (c.f. logger_test.go under Accounts"
 
-#Created by Preston Copeland during the week of 11/9-11/13/16.
+#Created by Preston Copeland.
 
 require 'pry'
 
@@ -598,13 +598,13 @@ class TestReport
   def self.generate_report(report_file_name='test_report.txt')
     file_names = self.fetch_all_filenames
     file_names.each do |file_name|
-      test_report = self.new(file_name, test_framework)
+      test_report = self.new(file_name)
       test_report.generate_report(report_file_name)
     end
   end
 
-  def expose_nodes(feature)
-    delete_test_nodes
+  def self.expose_nodes(feature)
+    self.delete_test_nodes
     file_names = TestReport.fetch_filenames(feature)
     file_names.each do |file_name|
       test_report = TestReport.new(file_name, feature)
@@ -621,16 +621,16 @@ class TestReport
     @test_nodes
   end
 
-  def test_case_count(feature)
+  def self.test_case_count(feature)
     cases = 0
     #remember expose_nodes returns an array of test nodes
-    expose_nodes(feature).each do |node|
+    self.expose_nodes(feature).each do |node|
       cases += node.spec_count
     end
     cases
   end
 
-  def delete_test_nodes
+  def self.delete_test_nodes
     @test_nodes = []
   end
 
@@ -662,11 +662,20 @@ test_runner
 
 =end
 
-=begin
+
 def run_main
   TestReport.all_features.each do |feature|
     puts "#{feature}:" + " #{TestReport.test_case_count(feature)}"
   end
+end
+
+run_main
+=begin
+  file_names = TestReport.fetch_all_filenames
+  TestReport.all_features.each do |feature|
+    puts "#{feature}:" + " #{TestReport.new(test_case_count(feature)}"
+  end
+
 
   TestReport.expose_nodes('Heimdall')
 
@@ -678,10 +687,8 @@ def run_main
   end while response != 'n'
 
   puts 'Goodbye!'
-end
-
-run_main
 =end
+
 #good go test files: "/Users/prestoncopeland/namely/sandbox/qa_metrics_dashboard/accounts/vendor/github.com/namely/mjolnir/logger/logger_test.go"
 #test cs file /Users/prestoncopeland/namely/sandbox/qa_metrics_dashboard/Namely.Payroll.RulesEngine/test/Namely.Payroll.RulesEngine.API.IntegrationTest/GetCreateRuleInstanceFormIntegrationTest.cs
 
