@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170113125703) do
+ActiveRecord::Schema.define(version: 20170113153718) do
 
   create_table "results", force: :cascade do |t|
     t.boolean  "pass_flag"
@@ -63,6 +63,13 @@ ActiveRecord::Schema.define(version: 20170113125703) do
     t.index ["user_id"], name: "index_test_instances_on_user_id"
   end
 
+  create_table "test_plan_cases", force: :cascade do |t|
+    t.integer "test_plan_id", null: false
+    t.integer "test_case_id", null: false
+    t.index ["test_case_id"], name: "index_test_plan_cases_on_test_case_id"
+    t.index ["test_plan_id"], name: "index_test_plan_cases_on_test_plan_id"
+  end
+
   create_table "test_plans", force: :cascade do |t|
     t.string   "title"
     t.date     "sprint_begin_date"
@@ -72,6 +79,13 @@ ActiveRecord::Schema.define(version: 20170113125703) do
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
     t.index ["user_id"], name: "index_test_plans_on_user_id"
+  end
+
+  create_table "test_reports", force: :cascade do |t|
+    t.string   "file_name"
+    t.string   "test_framework"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
 
   create_table "test_runs", force: :cascade do |t|
@@ -88,6 +102,17 @@ ActiveRecord::Schema.define(version: 20170113125703) do
     t.string   "description"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+  end
+
+  create_table "trees", force: :cascade do |t|
+    t.string   "test_framework"
+    t.string   "description"
+    t.string   "structure_marker"
+    t.integer  "indentation"
+    t.string   "file_name"
+    t.integer  "node_spec_count"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
   end
 
   create_table "users", force: :cascade do |t|

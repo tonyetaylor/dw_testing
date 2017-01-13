@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  test_framework: MyString
+  description: MyString
+  structure_marker: MyString
+  indentation: 1
+  file_name: MyString
+  node_spec_count: 1
+
+two:
+  test_framework: MyString
+  description: MyString
+  structure_marker: MyString
+  indentation: 1
+  file_name: MyString
+  node_spec_count: 1

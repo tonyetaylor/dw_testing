@@ -1,112 +1,4 @@
-#INPUT/TO RUN: From the Namely root directory, you can run 
-#the analyzer by typing 'ruby test_case_analyzer.rb' 
-#into the terminal. 
-
-#OUTPUT: The analyzer generates a report 'test_report.txt' 
-#in the same folder as test_case_analyzer.rb. 
-
-#test_framework = rspec, cucumber, go, java, csharp
-#structure_marker = describe, it, context, etc.
-#description = description of the test
-#indentation = if -1, it's the root of a file. 
-#Indentation is needed to determine the correct 
-#parent of tricky nested 'describes', etc. 
-#Tree instances have :file_name for easy searching
-
-#good spec files for testing: can_see_benefits_spec.rb, time_off_company_worker_spec.rb
-
-#TODO edge case for #create_go_test_node when t.Run has scenarios (test cases) run via an interator (c.f. logger_test.go under Accounts"
-
-#Created by Preston Copeland.
-
-require 'pry'
-
-class Tree
-  attr_accessor :parent, :children, :test_framework, :description, :structure_marker, :indentation, :file_name, :node_spec_count
-
-  def initialize(description, indentation=0)
-    unless description.nil?
-      description.gsub! /"/, ''
-    end
-    @description = description
-    @indentation = indentation
-    @children = []
-    @structure_marker = 'default'
-    @node_spec_count = 0
-  end
-
-  def title
-    @description.split("/")[-1].strip
-  end
-
-  def title_sans_suffix
-    title.split(".")[0].strip
-  end
-
-  def traverse(&block)
-    yield self
-    @children.each {|child| child.traverse(&block)}
-  end
-
-  def to_s(indent=0)
-    traverse do |node|
-      sub_indent = indent + 3
-      if(['describe', 'context', 'feature'].include?(node.structure_marker))
-        description = node.description.to_s
-        spec_count_of_node = node.spec_count.to_s
-        cases_string = node.cases_string(node.spec_count)
-        
-        return (description + ' ' + spec_count_of_node + cases_string + "\n" + ' ' * sub_indent + node.children.map { |child| ' - ' + child.to_s(sub_indent + 3) }.join("\n" + ' ' * sub_indent))
-      else
-        description = node.description.to_s
-
-        return (description + node.children.map { |child| " - " + child.to_s(sub_indent + 3) }.join("\n" + ' ' * sub_indent))
-      end
-    end
-  end
-
-  def cases_string(spec_count)
-    spec_count == 1 ? ' case' : ' cases'
-  end
-
-  def spec_count
-    @node_spec_count = 0
-    traverse do |node|
-      if node.structure_marker == 'it' || node.structure_marker == 'scenario' || node.structure_marker == 'test'
-        @node_spec_count += 1
-      end
-    end
-    @node_spec_count
-  end
-
-  #find a node or nodes with these three categories (1/9/17): description, structure_marker, file_name. E.g., find_child("login", "description"). NB: The /i is to make the terms case insensitive. 
-  def find_child(search_term, category)
-    found_nodes = []
-    traverse do |node|
-      case category
-      when "description"
-        if node.description =~ /#{Regexp.quote(search_term)}/i
-          found_nodes << node
-        end
-      when "structure_marker"
-        if node.structure_marker =~ /#{Regexp.quote(search_term)}/i
-          found_nodes << node
-        end
-      when "file_name"
-        #first steps to make search robust; replace whitespace with underscore to mimic file string
-        search_term.strip!
-        search_term.gsub!(/\s+/, '_')
-        if node.file_name =~ /#{Regexp.quote(search_term)}/i
-          found_nodes << node
-        end
-      else
-      end
-    end
-    found_nodes
-  end
-end #end class Tree
-
-class TestReport
+class TestReport < ApplicationRecord
   attr_accessor :file_name, :test_framework, :stack, :test_nodes, :root, :test_case_stack
 
   @@java_features = ['Carrier Feeds', 'Payroll', 'Auto Sync']
@@ -521,41 +413,41 @@ class TestReport
   def self.fetch_filenames(feature)
     case feature
     when 'Heimdall'
-      heimdall_filenames = Dir.glob("#{File.dirname(__FILE__)}/heimdall/**/*_test.go")
+      heimdall_filenames = Dir.glob("#{Rails.root}/heimdall/**/*_test.go")
     when 'Paycheck'
-      paycheck_filenames = Dir.glob("#{File.dirname(__FILE__)}/paycheck/spec/**/*.rb")
+      paycheck_filenames = Dir.glob("#{Rails.root}/paycheck/spec/**/*.rb")
     when 'Bifrost'
-      bifrost_filenames = Dir.glob("#{File.dirname(__FILE__)}/bifrost/**/*_test.go")
+      bifrost_filenames = Dir.glob("#{Rails.root}/bifrost/**/*_test.go")
     when 'HAT/Cortana'
-      hat_filenames = Dir.glob("#{File.dirname(__FILE__)}/hat/spec/**/*.rb")
+      hat_filenames = Dir.glob("#{Rails.root}/hat/spec/**/*.rb")
     when 'Accounts'
-      accounts_filenames = Dir.glob("#{File.dirname(__FILE__)}/accounts/**/*_test.go")
+      accounts_filenames = Dir.glob("#{Rails.root}/accounts/**/*_test.go")
     when 'Metrics Queue'
-      metric_queue_filenames = Dir.glob("#{File.dirname(__FILE__)}/metrics-queue/**/*.go")
+      metric_queue_filenames = Dir.glob("#{Rails.root}/metrics-queue/**/*.go")
     when 'Apollo'
-      apollo_filenames = Dir.glob("#{File.dirname(__FILE__)}/apollo-program/spec/**/*.rb")
+      apollo_filenames = Dir.glob("#{Rails.root}/apollo-program/spec/**/*.rb")
     when 'NetGRPC'
-      netgrpc_filenames = Dir.glob("#{File.dirname(__FILE__)}/nsgrpc/spec/**/*.rb")
+      netgrpc_filenames = Dir.glob("#{Rails.root}/nsgrpc/spec/**/*.rb")
     when 'Benefits ACA'
-      csharp_benefits_filenames = Dir.glob("#{File.dirname(__FILE__)}/Namely.Payroll.RulesEngine/test/**/*.cs")
+      csharp_benefits_filenames = Dir.glob("#{Rails.root}/Namely.Payroll.RulesEngine/test/**/*.cs")
     when 'Auto Sync' 
-      java_hcm_autosync_filenames = Dir.glob("#{File.dirname(__FILE__)}/automation/src/test/java/com/namely/tests/hcm/**/*.java")
-      java_little_rock_hcm_autosync_filenames = Dir.glob("#{File.dirname(__FILE__)}/automation/src/test/java/com/namely/tests/little/rock/hcm/**/*.java")
+      java_hcm_autosync_filenames = Dir.glob("#{Rails.root}/automation/src/test/java/com/namely/tests/hcm/**/*.java")
+      java_little_rock_hcm_autosync_filenames = Dir.glob("#{Rails.root}/automation/src/test/java/com/namely/tests/little/rock/hcm/**/*.java")
       java_hcm_autosync_filenames.push(*java_little_rock_hcm_autosync_filenames)
     when 'Payroll'
-      java_little_rock_filenames = Dir.glob("#{File.dirname(__FILE__)}/automation/src/test/java/com/namely/tests/little/rock/payroll/**/*.java")
-      java_payroll_filenames = Dir.glob("#{File.dirname(__FILE__)}/automation/src/test/java/com/namely/tests/payroll/**/*.java")
+      java_little_rock_filenames = Dir.glob("#{Rails.root}/automation/src/test/java/com/namely/tests/little/rock/payroll/**/*.java")
+      java_payroll_filenames = Dir.glob("#{Rails.root}/automation/src/test/java/com/namely/tests/payroll/**/*.java")
       java_little_rock_filenames.push(*java_payroll_filenames)
     when 'Carrier Feeds'
-      Dir.glob("#{File.dirname(__FILE__)}/automation/src/test/java/com/namely/tests/carrierfeeds/*.java")
+      Dir.glob("#{Rails.root}/automation/src/test/java/com/namely/tests/carrierfeeds/*.java")
     when 'API'
-      Dir.glob("#{File.dirname(__FILE__)}/namely/spec/controllers/api/**/*.rb")
+      Dir.glob("#{Rails.root}/namely/spec/controllers/api/**/*.rb")
     when 'HCM-unit'
-      Dir.glob("#{File.dirname(__FILE__)}/namely/spec/**/*.rb")
+      Dir.glob("#{Rails.root}/namely/spec/**/*.rb")
     when 'HCM-feature'
-      Dir.glob("#{File.dirname(__FILE__)}/namely/features/**/*.feature")
+      Dir.glob("#{Rails.root}/namely/features/**/*.feature")
     when 'Permissions'
-      Dir.glob("#{File.dirname(__FILE__)}/permissions/spec/**/*.rb")
+      Dir.glob("#{Rails.root}/permissions/spec/**/*.rb")
     else
     end
   end
@@ -643,52 +535,3 @@ class TestReport
   end
 
 end #end class TestReport
-
-
-
-=begin
-def test_runner
-  #go test files
-  a = "/Users/prestoncopeland/namely/sandbox/qa_metrics_dashboard/accounts/vendor/github.com/namely/mjolnir/logger/logger_test.go"
-  b = "/Users/prestoncopeland/namely/sandbox/qa_metrics_dashboard/accounts/data/credentials_validator_test.go"
-  c = "/Users/prestoncopeland/namely/sandbox/qa_metrics_dashboard/accounts/data/email_test.go"
-  d = "/Users/prestoncopeland/namely/sandbox/qa_metrics_dashboard/accounts/store/postgres/postgres_test.go"
-  t = TestReport.new(a, "Go")
-  tr = t.create_go_test_node
-  puts tr.spec_count
-end
-
-test_runner
-
-
-
-
-def run_main
-  TestReport.all_features.each do |feature|
-    puts "#{feature}:" + " #{TestReport.test_case_count(feature)}"
-  end
-end
-
-run_main
-
-  file_names = TestReport.fetch_all_filenames
-  TestReport.all_features.each do |feature|
-    puts "#{feature}:" + " #{TestReport.new(test_case_count(feature)}"
-  end
-
-
-  TestReport.expose_nodes('Heimdall')
-
-  begin 
-    puts 'Query test cases?'
-    response = gets.chomp!
-    result = TestReport.find_node(response)
-    puts result if result != 'not found'
-  end while response != 'n'
-
-  puts 'Goodbye!'
-=end
-
-#good go test files: "/Users/prestoncopeland/namely/sandbox/qa_metrics_dashboard/accounts/vendor/github.com/namely/mjolnir/logger/logger_test.go"
-#test cs file /Users/prestoncopeland/namely/sandbox/qa_metrics_dashboard/Namely.Payroll.RulesEngine/test/Namely.Payroll.RulesEngine.API.IntegrationTest/GetCreateRuleInstanceFormIntegrationTest.cs
-

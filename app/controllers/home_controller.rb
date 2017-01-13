@@ -1,19 +1,11 @@
 class HomeController < ApplicationController
   def index
   	data_table = GoogleVisualr::DataTable.new
-  	data_table.new_column('string', 'Year' )
-    data_table.new_column('number', 'Sales')
-    data_table.new_column('number', 'Expenses')
-
-# Add Rows and Values
-    data_table.add_rows([
-      ['2004', 1000, 400],
-      ['2005', 1170, 460],
-      ['2006', 660, 1120],
-      ['2007', 1030, 540]
-    ])
-
-    options = { width: 400, height: 240, title: 'Company Performance' }
-    @chart = GoogleVisualr::Interactive::AreaChart.new(data_table, options)
+  	data_table.new_column('string', 'Feature' )
+    data_table.new_column('number', 'Tests')
+    test_case_rows = TestReport.all_features.map { |feature| [feature, TestReport.test_case_count(feature)] } 
+    data_table.add_rows(test_case_rows)
+    options = { width: 800, height: 440, title: 'Tests Per Feature' }
+    @chart =  GoogleVisualr::Interactive::LineChart.new(data_table, options)
   end
 end
