@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  sprint_begin_date: 2017-01-13
+  sprint_end_date: 2017-01-13
+  user: one
+  notes: MyString
+
+two:
+  title: MyString
+  sprint_begin_date: 2017-01-13
+  sprint_end_date: 2017-01-13
+  user: two
+  notes: MyString

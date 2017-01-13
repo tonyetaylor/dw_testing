@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170113110729) do
+ActiveRecord::Schema.define(version: 20170113125703) do
 
   create_table "results", force: :cascade do |t|
     t.boolean  "pass_flag"
@@ -61,6 +61,17 @@ ActiveRecord::Schema.define(version: 20170113110729) do
     t.datetime "updated_at",      null: false
     t.index ["test_run_id"], name: "index_test_instances_on_test_run_id"
     t.index ["user_id"], name: "index_test_instances_on_user_id"
+  end
+
+  create_table "test_plans", force: :cascade do |t|
+    t.string   "title"
+    t.date     "sprint_begin_date"
+    t.date     "sprint_end_date"
+    t.integer  "user_id"
+    t.string   "notes"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.index ["user_id"], name: "index_test_plans_on_user_id"
   end
 
   create_table "test_runs", force: :cascade do |t|

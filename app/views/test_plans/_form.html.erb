@@ -1,0 +1,42 @@
+<%= form_for(test_plan) do |f| %>
+  <% if test_plan.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(test_plan.errors.count, "error") %> prohibited this test_plan from being saved:</h2>
+
+      <ul>
+      <% test_plan.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+  </div>
+
+  <div class="field">
+    <%= f.label :sprint_begin_date %>
+    <%= f.date_select :sprint_begin_date %>
+  </div>
+
+  <div class="field">
+    <%= f.label :sprint_end_date %>
+    <%= f.date_select :sprint_end_date %>
+  </div>
+
+  <div class="field">
+    <%= f.label :user_id %>
+    <%= f.collection_select :user_id, User.order(:email),:id,:email, include_blank: true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :notes %>
+    <%= f.text_area :notes, :size => "400x400" %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @test_plan.title %>
+</p>
+
+<p>
+  <strong>Sprint begin date:</strong>
+  <%= @test_plan.sprint_begin_date %>
+</p>
+
+<p>
+  <strong>Sprint end date:</strong>
+  <%= @test_plan.sprint_end_date %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @test_plan.user %>
+</p>
+
+<p>
+  <strong>Notes:</strong>
+  <%= @test_plan.notes %>
+</p>
+
+<%= link_to 'Edit', edit_test_plan_path(@test_plan) %> |
+<%= link_to 'Back', test_plans_path %>
